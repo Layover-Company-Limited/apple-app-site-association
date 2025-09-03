@@ -1,0 +1,25 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "RX4U53WXNJ.com.layover-ai.travel",
+                "paths": [
+                    "/trip/*",
+                    "/trips/*",
+                    "/*"
+                ]
+            }
+        ]
+    },
+    "webcredentials": {
+        "apps": [
+            "RX4U53WXNJ.com.layover-ai.travel"
+        ]
+    },
+    "appclips": {
+        "apps": [
+            "RX4U53WXNJ.com.layover-ai.travel.Clip"
+        ]
+    }
+}
