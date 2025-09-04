@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="trip_landing_page" name="Trip Landing Page">
+        <t t-call="website.layout">
+            <t t-set="title" t-value="page_title"/>
+            <t t-set="head">
+                <!-- Meta tags for social sharing -->
+                <meta property="og:title" t-att-content="page_title"/>
+                <meta property="og:description" t-att-content="page_description"/>
+                <meta property="og:image" content="https://www.layover-ai.com/web/image/website/1/logo"/>
+                <meta property="og:url" t-att-content="'https://www.layover-ai.com/trip/' + trip_id"/>
+                <meta property="og:type" content="website"/>
+                
+                <meta name="twitter:card" content="summary_large_image"/>
+                <meta name="twitter:title" t-att-content="page_title"/>
+                <meta name="twitter:description" t-att-content="page_description"/>
+                <meta name="twitter:image" content="https://www.layover-ai.com/web/image/website/1/logo"/>
+                
+                <!-- App Store Smart Banner -->
+                <meta name="apple-itunes-app" t-att-content="'app-id=YOUR_APP_ID, app-argument=' + app_scheme_url"/>
+                
+                <style>
+                    .trip-landing-container {
+                        min-height: 100vh;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 2rem;
+                        color: white;
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                    }
+                    
+                    .trip-card {
+                        max-width: 400px;
+                        padding: 2rem;
+                        text-align: center;
+                        background: rgba(255, 255, 255, 0.1);
+                        backdrop-filter: blur(10px);
+                        border-radius: 20px;
+                        border: 1px solid rgba(255, 255, 255, 0.2);
+                    }
+                    
+                    .trip-logo {
+                        width: 80px;
+                        height: 80px;
+                        margin: 0 auto 1.5rem;
+                        background: white;
+                        border-radius: 20px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 2rem;
+                    }
+                    
+                    .trip-title {
+                        font-size: 2rem;
+                        margin-bottom: 1rem;
+                        font-weight: 700;
+                    }
+                    
+                    .trip-description {
+                        font-size: 1.1rem;
+                        margin-bottom: 2rem;
+                        opacity: 0.9;
+                        line-height: 1.6;
+                    }
+                    
+                    .cta-buttons {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 1rem;
+                    }
+                    
+                    .btn-trip {
+                        padding: 1rem 2rem;
+                        border: none;
+                        border-radius: 12px;
+                        font-size: 1.1rem;
+                        font-weight: 600;
+                        text-decoration: none;
+                        display: inline-block;
+                        transition: all 0.3s ease;
+                        cursor: pointer;
+                    }
+                    
+                    .btn-primary {
+                        background: white;
+                        color: #667eea;
+                    }
+                    
+                    .btn-primary:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+                        text-decoration: none;
+                        color: #667eea;
+                    }
+                    
+                    .btn-secondary {
+                        background: rgba(255, 255, 255, 0.2);
+                        color: white;
+                        border: 1px solid rgba(255, 255, 255, 0.3);
+                    }
+                    
+                    .btn-secondary:hover {
+                        background: rgba(255, 255, 255, 0.3);
+                        text-decoration: none;
+                        color: white;
+                    }
+                    
+                    .loading {
+                        display: none;
+                        margin-top: 1rem;
+                    }
+                    
+                    .spinner {
+                        width: 40px;
+                        height: 40px;
+                        border: 4px solid rgba(255, 255, 255, 0.3);
+                        border-top: 4px solid white;
+                        border-radius: 50%;
+                        animation: spin 1s linear infinite;
+                        margin: 0 auto;
+                    }
+                    
+                    @keyframes spin {
+                        0% { transform: rotate(0deg); }
+                        100% { transform: rotate(360deg); }
+                    }
+                    
+                    @media (max-width: 480px) {
+                        .trip-card {
+                            margin: 1rem;
+                            padding: 1.5rem;
+                        }
+                        
+                        .trip-title {
+                            font-size: 1.5rem;
+                        }
+                        
+                        .trip-description {
+                            font-size: 1rem;
+                        }
+                    }
+                </style>
+            </t>
+            
+            <div class="trip-landing-container">
+                <div class="trip-card">
+                    <div class="trip-logo">✈️</div>
+                    <h1 class="trip-title">Layover AI</h1>
+                    <p class="trip-description">查看我的旅程！下載 Layover AI 獲得完整的 AI 智能行程規劃體驗。</p>
+                    
+                    <div class="cta-buttons">
+                        <button class="btn-trip btn-primary" onclick="tryOpenApp()">
+                            打開 Layover AI
+                        </button>
+                        <a t-att-href="app_store_url" class="btn-trip btn-secondary">
+                            從 App Store 下載
+                        </a>
+                        <a t-att-href="play_store_url" class="btn-trip btn-secondary">
+                            從 Google Play 下載
+                        </a>
+                    </div>
+                    
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p style="margin-top: 1rem; font-size: 0.9rem;">正在嘗試打開應用程式...</p>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                function tryOpenApp() {
+                    const tripId = '<t t-esc="trip_id"/>';
+                    const appStoreUrl = '<t t-esc="app_store_url"/>';
+                    
+                    if (!tripId) {
+                        alert('無效的行程連結');
+                        return;
+                    }
+                    
+                    const loading = document.querySelector('.loading');
+                    const buttons = document.querySelector('.cta-buttons');
+                    
+                    // Show loading state
+                    loading.style.display = 'block';
+                    buttons.style.display = 'none';
+                    
+                    // Try to open the app
+                    const appUrl = `layover-ai://trip/${tripId}`;
+                    
+                    // Create a hidden iframe to trigger the app
+                    const iframe = document.createElement('iframe');
+                    iframe.style.display = 'none';
+                    iframe.src = appUrl;
+                    document.body.appendChild(iframe);
+                    
+                    // Fallback after 3 seconds
+                    setTimeout(() => {
+                        loading.style.display = 'none';
+                        buttons.style.display = 'flex';
+                        
+                        // If still on the page, app probably isn't installed
+                        if (confirm('看起來您還沒有安裝 Layover AI。要前往 App Store 下載嗎？')) {
+                            window.location.href = appStoreUrl;
+                        }
+                        
+                        // Clean up
+                        document.body.removeChild(iframe);
+                    }, 3000);
+                }
+                
+                // Auto-attempt to open app on page load for mobile devices
+                document.addEventListener('DOMContentLoaded', function() {
+                    const isMobile = /iPhone|iPad|Android|Mobile/i.test(navigator.userAgent);
+                    if (isMobile) {
+                        // Small delay to ensure page is fully loaded
+                        setTimeout(tryOpenApp, 1000);
+                    }
+                });
+            </script>
+        </t>
+    </template>
+</odoo>
