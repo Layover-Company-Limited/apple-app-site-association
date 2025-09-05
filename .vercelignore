@@ -1,0 +1,7 @@
+node_modules
+.git
+.next
+README.md
+trip_xml
+*.log
+.DS_Store
