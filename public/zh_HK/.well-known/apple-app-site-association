@@ -6,8 +6,7 @@
                 "appID": "RX4U53WXNJ.com.layover-ai.travel",
                 "paths": [
                     "/trip/*",
-                    "/trips/*",
-                    "/*"
+                    "/trips/*"
                 ]
             }
         ]
