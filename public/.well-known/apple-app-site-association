@@ -7,6 +7,11 @@
                 "paths": [
                     "/trip/*",
                     "/trips/*"
+                ],
+                "exclude": [
+                    "/zh_HK*",
+                    "/zh_HK/*",
+                    "/"
                 ]
             }
         ]
