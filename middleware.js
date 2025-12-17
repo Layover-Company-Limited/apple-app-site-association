@@ -8,6 +8,11 @@ export function middleware(request) {
     return NextResponse.next()
   }
 
+    // If path starts with /app-ads/, 
+  if (pathname.startsWith('/zh_HK/app-ads.txt/')|| pathname.startsWith('/app-ads.txt/')) {
+    return NextResponse.next()
+  }
+
   // Otherwise, send traffic to Odoo
   return NextResponse.rewrite('https://layover-ai.odoo.com' + pathname)
 } 
