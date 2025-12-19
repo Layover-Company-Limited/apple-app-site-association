@@ -9,7 +9,7 @@ export function middleware(request) {
   }
 
     // If path starts with /app-ads/, 
-  if (pathname == '/app-ads.txt' || pathname == '/zh_HK/app-ads.txt') {
+  if (pathname == '/app-ads.txt' || pathname == '/zh_HK/app-ads.txt' || pathname == '/ads.txt' || pathname == '/zh_HK/ads.txt' ) {
     return NextResponse.next()
   }
 
