@@ -13,6 +13,11 @@ export function middleware(request) {
     return NextResponse.next()
   }
 
+    // If path starts with /robots.txt/, 
+  if (pathname == '/robots.txt' || pathname == '/zh_HK/robots.txt') {
+    return NextResponse.next()
+  }
+
   // Otherwise, send traffic to Odoo
   return NextResponse.rewrite('https://layover-ai.odoo.com' + pathname)
 } 
